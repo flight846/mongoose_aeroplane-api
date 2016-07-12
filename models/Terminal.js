@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
-var flight = require('./models/flight');
+var flight = require('./flight');
 
 var TerminalSchema = mongoose.Schema({
     name: String,
     _flights: [{
-        type: mongoose.Scheme.Types.ObjectId, ref: 'flights'
+        type: mongoose.Schema.Types.ObjectId, ref: 'flights'
     }],
     capacity: Number
 })

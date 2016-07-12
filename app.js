@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var Flight= require('./models/Flight')
+
 
 var routes = require('./routes/index');
 
@@ -63,21 +63,54 @@ app.use(function(err, req, res, next) {
   });
 });
 
-// Create
-Flight.create({
-    from: 'CDG France',
-    to: 'JFK New-York, USA',
-    airline: 'American Airlines',
-    name: 'flight1'
-},
-{
-    from: 'Heathrow UK',
-    to: 'JFK New-York',
-    airline: 'British Airways',
-    name: 'flight2'
-}
-)
+var Flight= require('./models/Flight')
+var Terminal= require('./models/Terminal')
+var Airport= require('./models/Airport')
 
+var flight1 = new Flight({
+  from: "CDG France",
+  to: "JFK New-York, USA",
+  airline: "American Airline",
+  passengers: []
+});
+ 
+flight1.save();
+console.log(flight1)
+ 
+ 
+var flight2 = new Flight({
+  from: "Heathrow UK",
+  to: "JFK New-York, USA",
+  airline: "British Airways",
+  passengers: []
+});
+ 
+flight2.save();
+console.log(flight2)
+ 
+ 
+ 
+var airport1 = new Airport({
+    name: "JFK",
+    country: "USA",
+    opened: ((new Date()).setYear(1990))
+  });
+ 
+ 
+airport1.terminals.push({
+    name: "Terminal 1",
+    capacity: 234324,
+    flights: [flight1, flight2]
+  })
+
+console.log(airport1)
+console.log(airport1.terminals)
+airport1.save()
+
+// Terminal.findById('').populate('flights').exec(function(err, terminal) {
+// 	if (err) return console.log(err)
+// 	console.log('Terminal found...', user)
+// })
 
 // START THE SERVER
 // =============================================================================

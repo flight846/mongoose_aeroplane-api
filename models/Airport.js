@@ -4,7 +4,7 @@ var terminal = require('./terminal');
 var AirportSchema = mongoose.Schema({
 	name: String,
 	country: String,
-    terminals: [terminalSchema],
+    terminals: [terminal.schema],
     opened: Date
 });
 
